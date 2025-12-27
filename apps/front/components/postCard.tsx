@@ -16,7 +16,7 @@ const PostCard=({...props}:Props)=>{
                  <p className=" mt-4 text-gray-500 text-sm max-h-50 overflow-y-clip">{new Date(props.createdAt?? '').toLocaleDateString()}</p>
                 <p className="text-gray-600 max-h-50 overflow-y-clip">{props.content?.slice(0,100)}...</p>
 
-                <Link className="text-indigo-500 hover:underline mt-auto text-right" href={`/blog/${props.slug}/${props.id}`}>Read more</Link>
+                <Link className="text-indigo-500 hover:underline mt-auto text-right" href={`/blog/${props.slug}/${props.id || 'unknown'}`}>Read more</Link>
                 
            </div>
         </div>

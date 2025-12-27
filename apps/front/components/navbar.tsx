@@ -1,9 +1,13 @@
+import { getSession } from "@/lib/session";
 import Link from "next/link";
+import SignInPannel from "./signInPannel";
+import Profile from "./profile";
 
 
  type Props = {};
 
- const Navbar=(props: Props) => {
+ const Navbar= async (props: Props) => {
+  const session = await getSession()
    return (
      <div className="flex flex-col md:flex-row " >
       <h1 className="text-xl font-bold items-center " >My Modern Blog</h1>
@@ -17,6 +21,8 @@ import Link from "next/link";
       <Link href='#contact'>
       Contact
       </Link>
+
+      {session && session.user?<Profile user={session.user}/>:<SignInPannel/>}
       </div>
      </div>
    );

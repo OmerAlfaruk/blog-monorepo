@@ -1,6 +1,8 @@
 import { fetchPostById } from "@/lib/actions/postActions";
 import Image from "next/image";
 import DOMPurify from "isomorphic-dompurify";
+import CommentComponent from "./_components/comment";
+import { getSession } from "@/lib/session";
 
 type Props={
     params: Promise<{
@@ -9,10 +11,16 @@ type Props={
     }>;
 }
 
-
 const postPage=async ({params}:Props)=>{
     const {id} = await params;
+    
+    if (!id || id === 'null' || id === 'undefined') {
+        return <div>Post not found</div>;
+    }
+    
     const post=await fetchPostById(+id);
+    const session = await getSession();
+    const user = session?.user;
 
     return (
        <main className="container mx-auto px-4 py-8 "> 
@@ -36,12 +44,13 @@ const postPage=async ({params}:Props)=>{
         </div>
         <div className="prose max-w-none" dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(post.content)}}>
 
-            {/* Post Comment */}
-
+       
             
 
 
         </div>
+             {/* Post Comment */}
+       <CommentComponent user={user} postId={post.id}/>
       </div>
 
 

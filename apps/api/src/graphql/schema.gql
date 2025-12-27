@@ -64,12 +64,15 @@ type Query {
   postCount: Int!
   getpostById(id: Int!): Post!
   user(id: Int!): User!
+  getPostCommets(postId: Int!, take: Int = 12, skip: Int = 0): [CommentEntity!]!
+  postCommentCount(postId: Int!): Int!
 }
 
 type Mutation {
   createUser(createUserInput: CreateUserInput!): User!
   updateUser(updateUserInput: UpdateUserInput!): User!
   removeUser(id: Int!): User!
+  createComment(createCommentInput: CreateCommentInput!): CommentEntity!
   SignIn(SignInInput: SignInInput!): AuthPayload!
 }
 
@@ -88,6 +91,11 @@ input UpdateUserInput {
   bio: String
   avatar: String
   id: Int!
+}
+
+input CreateCommentInput {
+  postId: Int!
+  content: String!
 }
 
 input SignInInput {

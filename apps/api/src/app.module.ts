@@ -11,9 +11,10 @@ import { CommentModule } from './comment/comment.module';
 import { TagModule } from './tag/tag.module';
 import { LikeModule } from './like/like.module';
 import { AuthModule } from './auth/auth.module';
+import { AiModule } from './ai/ai.module';
 
 @Module({
-  imports: [GraphQLModule.forRoot<ApolloDriverConfig>({ driver: ApolloDriver , autoSchemaFile: join(process.cwd(), 'src/graphql/schema.gql')}), ConfigModule.forRoot({ isGlobal: true , envFilePath: '.env'}), PostModule, UserModule, CommentModule, TagModule, LikeModule, AuthModule],
+  imports: [GraphQLModule.forRoot<ApolloDriverConfig>({ driver: ApolloDriver , autoSchemaFile: join(process.cwd(), 'src/graphql/schema.gql')}), ConfigModule.forRoot({ isGlobal: true , envFilePath: '.env'}), PostModule, UserModule, CommentModule, TagModule, LikeModule, AuthModule, AiModule],
   controllers: [AppController],
   providers: [AppService], 
 }) 

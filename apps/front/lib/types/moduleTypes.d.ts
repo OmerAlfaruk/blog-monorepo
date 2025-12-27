@@ -31,18 +31,27 @@ export type Post={
   updatedAt :Date;
 }
 
-export type CommentModel= {
+export type CommentEntity= {
   id       : Int     
   content   :String
   postId    :Int
   post      :Post    
   authorId  :Int
   author    :User     
-
-
-
   createdAt :Date;
   updatedAt :Date;}
+
+
+  export type CommentFormState={
+    data: {
+      content?: string;
+  
+    };
+    error: {
+      content?: string[];
+    };
+    message: string;
+  }|undefined
 
 export type Tag ={
   id  :  Int ;   
@@ -60,15 +69,3 @@ export type like ={
 }
 
 
-export type SigUpFormState={
- error:{
-  name?:string[],
-  email?:string[],
-  password?:string[],
-
-
- }
-
- message:string
-
-}|undefined;

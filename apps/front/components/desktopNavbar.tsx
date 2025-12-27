@@ -31,9 +31,9 @@ const pathname=usePathname();
       
     return (
        <nav className="">
-        <div className={cn("hidden fixed py-4 px-4 transition-colors w-full  z-50  md:block",{
-         "bg-white text-gray-700 shadow-md":isScrollDown||isHome,
-         "bg-sky-500 text-white":!isScrollDown&&!isHome
+        <div className={cn("hidden fixed py-4 px-4 transition-colors w-full  z-50  md:block  bg-sky-500 text-white",{
+         "bg-white text-gray-700 shadow-md":isScrollDown&&isHome,
+         
        })}>
             {props.children}
         </div>

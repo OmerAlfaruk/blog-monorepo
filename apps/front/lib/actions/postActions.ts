@@ -21,6 +21,7 @@ export const fetchPostById=async (id:number)=>{
     const data= await fetchGraphQl(print(GET_POSTS_BY_ID), {id});
 
     return data.getpostById as Post
+    
 
   
 }

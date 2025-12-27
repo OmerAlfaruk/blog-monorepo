@@ -4,6 +4,8 @@ import "./globals.css";
 import DesktopNavbar from "@/components/desktopNavbar";
 import Navbar from "@/components/navbar";
 import NavabarContainer from "@/components/navabarContainer";
+import AiChat from "@/components/AiChat";
+import Providers from "./providers";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -31,10 +33,13 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         suppressHydrationWarning={true}
       >
-       <NavabarContainer >
+       <Providers>
+        <NavabarContainer >
         <Navbar/>
        </NavabarContainer>
         {children}
+        <AiChat />
+       </Providers>
       </body>
     </html>
   );
