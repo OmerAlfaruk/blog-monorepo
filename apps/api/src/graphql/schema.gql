@@ -66,6 +66,8 @@ type Query {
   user(id: Int!): User!
   getPostCommets(postId: Int!, take: Int = 12, skip: Int = 0): [CommentEntity!]!
   postCommentCount(postId: Int!): Int!
+  likeCount(postId: Int!): Int!
+  userLikedPost(postId: Int!): Boolean!
 }
 
 type Mutation {
@@ -73,6 +75,8 @@ type Mutation {
   updateUser(updateUserInput: UpdateUserInput!): User!
   removeUser(id: Int!): User!
   createComment(createCommentInput: CreateCommentInput!): CommentEntity!
+  likPost(postId: Int!): Boolean!
+  unLikPost(postId: Int!): Boolean!
   SignIn(SignInInput: SignInInput!): AuthPayload!
 }
 

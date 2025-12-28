@@ -8,6 +8,8 @@ import SubmitButton from "@/components/SubmitButton";
 import { createComment } from "@/lib/actions/commentAction";
 import { use, useActionState, useEffect } from "react";
 import { toast } from "sonner"
+import { QueryObserverResult, RefetchOptions } from "@tanstack/react-query";
+import { CommentEntity } from "@/lib/types/moduleTypes";
 
 type SessionUser = {
     id: string;
@@ -19,6 +21,10 @@ type Props={
     postId:number,
     user:SessionUser,
     className?:string
+    refetch: (options?: RefetchOptions | undefined) => Promise<QueryObserverResult<{
+    comments: CommentEntity[];
+    totalcomments: number;
+}, Error>>
 }
 const   AddComment=(props:Props)=>{
     const [state, action] = useActionState(createComment, undefined);
@@ -29,7 +35,10 @@ const   AddComment=(props:Props)=>{
         useEffect(() => {
           state?.ok && toast.success("Comment added")
           state?.error && toast.error('oops something went wrong')
+          state?.ok && props.refetch()
         }, [state]);
+
+      
 
     
     return (
@@ -52,7 +61,7 @@ const   AddComment=(props:Props)=>{
                         <p>
                             <span>
                                 write as 
-                                <span className="font-bold">{props.user.name}</span>
+                                <span className="font-bold">&nbsp;{props.user.name}</span>
                             </span>
                         </p>
                         <SubmitButton >Submit</SubmitButton>

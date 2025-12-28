@@ -1,26 +1,84 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable, UseGuards } from '@nestjs/common';
 import { CreateLikeInput } from './dto/create-like.input';
 import { UpdateLikeInput } from './dto/update-like.input';
+import { PrismaService } from '../prisma/prisma.service';
+import { JwtAuthGuard } from 'src/auth/guards/jwt-auth/jwt-auth.guard';
 
 @Injectable()
 export class LikeService {
-  create(createLikeInput: CreateLikeInput) {
-    return 'This action adds a new like';
+
+ 
+
+  constructor(private readonly prismaService:PrismaService) {}
+ async likePost({
+    postId,userId
+  }:{postId: number, userId: number}) {
+
+    try{
+
+      return !!await this.prismaService.like.create({
+        data:{
+          postId,userId
+        }
+      })
+
+
+
+
+    }catch(e){
+      throw new BadRequestException("Post already liked");
+
+      
+    }
+
+     
+    
   }
 
-  findAll() {
-    return `This action returns all like`;
+
+   async unLikPost({
+    postId,userId
+  }:{postId: number, userId: number}) {
+
+    try{
+
+      return !!await this.prismaService.like.delete({
+        where:{
+          userId_postId:{userId,postId}
+        }
+      })
+
+
+
+
+    }catch(e){
+      throw new BadRequestException("Post already unliked");
+
+      
+    }
+
+     
+    
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} like`;
+
+   async likeCount(postId: number) {
+    return await this.prismaService.like.count({
+      where: {
+        postId,
+      },
+    });
   }
 
-  update(id: number, updateLikeInput: UpdateLikeInput) {
-    return `This action updates a #${id} like`;
+    async userLikedPost({ postId, userId }: { postId: number; userId: number; }) {
+    const like=await this.prismaService.like.findFirst({
+      where: {
+        userId,
+        postId,
+      },
+    });
+    return !!like;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} like`;
-  }
+  
 }

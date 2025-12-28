@@ -1,12 +1,42 @@
-import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
+import { Resolver, Query, Mutation, Args, Int, Context } from '@nestjs/graphql';
 import { LikeService } from './like.service';
 import { Like } from './entities/like.entity';
 import { CreateLikeInput } from './dto/create-like.input';
 import { UpdateLikeInput } from './dto/update-like.input';
+import { UseGuards } from '@nestjs/common';
+import { JwtAuthGuard } from 'src/auth/guards/jwt-auth/jwt-auth.guard';
 
 @Resolver(() => Like)
 export class LikeResolver {
   constructor(private readonly likeService: LikeService) {}
 
-  
+  @UseGuards(JwtAuthGuard)
+  @Mutation(() =>Boolean)
+
+async likPost(@Args('postId',{type:()=>Int})postId:number,@Context() context){
+  const userId=context.req.user.id;
+  return await this.likeService.likePost({postId,userId});
+}
+
+
+
+  @UseGuards(JwtAuthGuard)
+  @Mutation(() =>Boolean)
+
+async unLikPost(@Args('postId',{type:()=>Int})postId:number,@Context() context){
+  const userId=context.req.user.id;
+  return await this.likeService.unLikPost({postId,userId});
+}
+
+@Query(()=>Int)
+async likeCount(@Args('postId',{type:()=>Int})postId:number){
+  return await this.likeService.likeCount(postId);
+}
+@UseGuards(JwtAuthGuard)
+  @Query(()=>Boolean)
+  userLikedPost(@Args('postId',{type:()=>Int})postId:number,@Context() context){
+    const userId=context.req.user.id;
+    return this.likeService.userLikedPost({postId,userId});
+  }
+
 }

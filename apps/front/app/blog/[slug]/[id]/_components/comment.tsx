@@ -29,7 +29,7 @@ const CommentComponent = ({postId,user}:Props) => {
     const [showCommentForm, setShowCommentForm] = useState(false);
     console.log('Component rendered with postId:', postId);
     
-    const {data, isLoading, error} = useQuery({
+    const {data, isLoading, refetch} = useQuery({
         queryKey: ['GET_COMMENTS', postId, page],
         queryFn: async () => {
             console.log('Query function called!');
@@ -62,14 +62,14 @@ const CommentComponent = ({postId,user}:Props) => {
 
 
             {user && (
-                <div className="flex flex-row gap-2 cursor-pointer hover:bg-gray-50 p-2 rounded">
+                <div className="flex flex-row gap-2 cursor-pointer hover:bg-gray-50 p-2 rounded" >
                     <PencilIcon className="w-6 h-6 text-slate-500" />
                     <AddComment postId={postId} user={{
                         id: user.id || '',
                         name: user.name || '',
                         email: '',
                         image: user.avatar
-                    }}/>
+                    }} refetch={refetch}/>
                 </div>
             )}
 
