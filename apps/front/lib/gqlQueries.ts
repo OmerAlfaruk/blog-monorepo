@@ -52,7 +52,7 @@ mutation signInUser($input:SignInInput!){
 }`
 
 export const GET_COMMENTS=gql`
-query getPostCommets($postId:Int!, $skip:Int, $take:Int){
+query getPostCommets($postId:Int!, $skip:Float, $take:Float){
     getPostCommets(postId:$postId, skip:$skip, take:$take){
         id
         content
@@ -72,4 +72,45 @@ mutation createComment($input:CreateCommentInput!){
         id
         content
     }
+}`
+
+export const LIKE_POST=gql`
+query postLikeData($postId:Int!){
+    likeCount(postId:$postId)
+    userLikedPost(postId:$postId)
+
+
+
+}`
+
+
+export const LIKE_POST_MUTATION=gql`
+mutation  likePost($postId:Int!){
+    likPost(postId:$postId)
+}`;
+
+
+export const UNLIKE_POST_MUTATION=gql`
+mutation  unLikPost($postId:Int!){
+    unLikPost(postId:$postId)
+}`
+
+
+export const GET_USER_POSTS=gql`
+query getUserPost($skip:Float,$take:Float){
+    getUserPost(skip:$skip,take:$take){
+        id
+        title
+        slug
+        content
+        thumbnail
+        published
+        _count{
+            
+            comments
+            likes
+        }
+        createdAt
+    }
+    userPostCount
 }`

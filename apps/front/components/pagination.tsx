@@ -7,16 +7,16 @@ type Props = {
     currentPage: number,
     totalPage: number,
     pagesNeighbors: number,
-
+    basePath?: string,
 }
-const Pagination = ({ currentPage, totalPage, pagesNeighbors }: Props) => {
+const Pagination = ({ currentPage, totalPage, pagesNeighbors, basePath = "/" }: Props) => {
     const pageNumbers = calculatePageNumber({ pageNeighbors: pagesNeighbors, currentPage: currentPage, totalPages: totalPage });
     
     return (
         <div className="flex justify-center mt-12 mb-8">
             <nav aria-label="Page navigation" className="flex items-center">
                 {currentPage > 1 && (
-                    <Link href={`/?page=${currentPage - 1}`} className="flex items-center justify-center w-10 h-10 mr-1 text-gray-500 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 hover:text-gray-700 transition-colors">
+                    <Link href={`${basePath}?page=${currentPage - 1}`} className="flex items-center justify-center w-10 h-10 mr-1 text-gray-500 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 hover:text-gray-700 transition-colors">
                         <ChevronLeft className="w-4 h-4" />
                     </Link>
                 )}
@@ -32,7 +32,7 @@ const Pagination = ({ currentPage, totalPage, pagesNeighbors }: Props) => {
                     return (
                         <Link
                             key={index}
-                            href={`/?page=${page}`}
+                            href={`${basePath}?page=${page}`}
                             className={`flex items-center justify-center w-10 h-10 mx-1 rounded-lg border transition-colors ${
                                 currentPage === page 
                                     ? "bg-sky-500 text-white border-sky-500 shadow-md" 
@@ -45,7 +45,7 @@ const Pagination = ({ currentPage, totalPage, pagesNeighbors }: Props) => {
                 })}
 
                 {currentPage < totalPage && (
-                    <Link href={`/?page=${currentPage + 1}`} className="flex items-center justify-center w-10 h-10 ml-1 text-gray-500 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 hover:text-gray-700 transition-colors">
+                    <Link href={`${basePath}?page=${currentPage + 1}`} className="flex items-center justify-center w-10 h-10 ml-1 text-gray-500 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 hover:text-gray-700 transition-colors">
                         <ChevronRight className="w-4 h-4" />
                     </Link>
                 )}

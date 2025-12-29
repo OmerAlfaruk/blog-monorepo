@@ -29,6 +29,11 @@ export type Post={
 
   createdAt :Date;
   updatedAt :Date;
+
+  _count: {
+    comments: number;
+    likes: number;
+  };
 }
 
 export type CommentEntity= {

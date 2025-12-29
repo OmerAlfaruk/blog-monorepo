@@ -48,12 +48,13 @@ const Profile= ({user}:Props) => {
                 
                 </Link>
 
-                <Link href="/user/create-post">
+                <Link href="/user/posts">
                 
                 <PencilSquareIcon className="w-4"/>
                     <span className="">Posts</span>
               
                 </Link>
+
                 
 
             </div>

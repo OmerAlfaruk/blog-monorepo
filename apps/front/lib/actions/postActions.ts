@@ -1,8 +1,8 @@
 "use server"
 
-import { fetchGraphQl } from "../fetchGraphQL"
+import { authFetchGraphQl, fetchGraphQl } from "../fetchGraphQL"
 import {print} from "graphql"
-import { GET_POSTS, GET_POSTS_BY_ID } from "../gqlQueries"
+import { GET_POSTS, GET_POSTS_BY_ID, GET_USER_POSTS } from "../gqlQueries"
 import { trasformTakeSkip } from "../helper"
 import { Post } from "../types/moduleTypes"
 
@@ -24,4 +24,18 @@ export const fetchPostById=async (id:number)=>{
     
 
   
+}
+
+
+export const getUserPosts= async({page,pageSize}:{page?:number,pageSize?:number})=>{
+
+     const {skip,take}=trasformTakeSkip({page,pageSize})
+
+     const data= await authFetchGraphQl(print(GET_USER_POSTS),{
+        take,skip
+     }) 
+
+     return {posts:data.getUserPost as Post[],totalposts:data.userPostCount as number}
+
+
 }

@@ -3,6 +3,7 @@ import Image from "next/image";
 import DOMPurify from "isomorphic-dompurify";
 import CommentComponent from "./_components/comment";
 import { getSession } from "@/lib/session";
+import Like from "./_components/like";
 
 type Props={
     params: Promise<{
@@ -49,8 +50,10 @@ const postPage=async ({params}:Props)=>{
 
 
         </div>
+        
              {/* Post Comment */}
        <CommentComponent user={user} postId={post.id}/>
+       
       </div>
 
 

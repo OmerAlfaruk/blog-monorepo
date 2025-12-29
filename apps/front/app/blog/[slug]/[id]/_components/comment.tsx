@@ -11,6 +11,7 @@ import { MessageCircle, PencilIcon } from "lucide-react";
 import CommentForm from "./commentForm";
 import AddComment from "./addComment";
 import { SessionUser as SessionUserType } from "@/lib/session";
+import Like from "./like";
 
 type SessionUser = {
     id: string;
@@ -46,19 +47,24 @@ const CommentComponent = ({postId,user}:Props) => {
     
     
     return (
-        <div className="p-2 rounded rouded-md shadow-md">
+        <div className="p-1 rounded rouded-md shadow-md">
           <div className="flex flex-row gap-10">
-            <MessageCircle className="w-8 h-8 text-slate-500" />
+      
+                <Like user={user} postId={postId}/>
+           
+               
+          
+            <div className="flex gap-2 items-center">
+                <MessageCircle className="w-4 h-4 text-slate-500 items-center " />
 
-            <div className="flex flex-col">
-                <p className="font-bold">Comments</p>
                 <p className="text-sm text-slate-500">{data?.totalcomments} comments</p>
             </div>
 
-            <div className="flex flex-col">
+            <div className="flex gap-2 items-center">
                 <p className="font-bold">Last Comment</p>
                 <p className="text-sm text-slate-500">{data?.comments?.[0]?.author?.name ?? 'No comments yet'}</p>
             </div>
+           
 
 
             {user && (
