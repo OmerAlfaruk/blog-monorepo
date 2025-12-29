@@ -114,3 +114,11 @@ query getUserPost($skip:Float,$take:Float){
     }
     userPostCount
 }`
+export const CREATE_POST_MUTATION= gql`
+    mutation createPost($createPostInput:CreatePostInput!){
+        createPost(createPostInput:$createPostInput){
+            id
+            
+        }}
+    `
+    

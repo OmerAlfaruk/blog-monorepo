@@ -204,10 +204,6 @@ npm run start:prod
 4. Push to branch (`git push origin feature/amazing-feature`)
 5. Open Pull Request
 
-## 📄 License
-
-This project is licensed under the MIT License.
-
 ## 🤝 Support
 
 For support, email [omerkamil974@gmail.com] or create an issue in the repository.

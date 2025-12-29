@@ -5,6 +5,7 @@ import { CreatePostInput } from './dto/create-post.input';
 import { UpdatePostInput } from './dto/update-post.input';
 import { UseGuards } from '@nestjs/common';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth/jwt-auth.guard';
+import { DEFAULT_PAGE_SIZE } from 'src/constants';
 
 
 @Resolver(() => Post)
@@ -29,6 +30,38 @@ export class PostResolver {
   getpostById(@Args('id', {type:()=>Int}) id:number){
     return this.postService.findOne(id)
   }
+
+  @UseGuards(JwtAuthGuard)
+  @Query(()=>[Post])
+  getUserPost(@Context() context,@Args('skip',{nullable:true}) skip:number,@Args('take',{nullable:true}) take:number){
+
+    const userId=context.req.user.id;
+    return this.postService.findPostByUser({userId,skip:skip??0,take:take??DEFAULT_PAGE_SIZE})
+
+  }
+
+   @UseGuards(JwtAuthGuard)
+  @Query(()=>Int)
+  userPostCount(@Context() context){
+     const userId=context.req.user.id;
+     return this.postService.userPostCount(userId)
+
+  }
+
+
+  @UseGuards(JwtAuthGuard)
+  @Mutation(()=>Post)
+
+  createPost(@Context() context,@Args("createPostInput")createPostInput:CreatePostInput){
+
+    const userId=context.req.user.id;
+    return this.postService.createPost({createPostInput,userId});
+  }
+
+
+
+
+
 
  
 

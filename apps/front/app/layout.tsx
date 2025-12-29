@@ -6,6 +6,7 @@ import Navbar from "@/components/navbar";
 import NavabarContainer from "@/components/navabarContainer";
 import AiChat from "@/components/AiChat";
 import Providers from "./providers";
+import { Toaster } from "sonner";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -38,7 +39,8 @@ export default function RootLayout({
         <Navbar/>
        </NavabarContainer>
         {children}
-        <AiChat />
+       {/* <AiChat /> */}
+       <Toaster />
        </Providers>
       </body>
     </html>

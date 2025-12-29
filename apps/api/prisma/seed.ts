@@ -1,7 +1,8 @@
 import 'dotenv/config'; // Load .env at the very top
-import { faker } from '@faker-js/faker';
+import { de, faker } from '@faker-js/faker';
 import { PrismaClient } from '../src/generated/prisma/client'; // Adjust if needed (check generated folder)
 import { PrismaBetterSqlite3 } from '@prisma/adapter-better-sqlite3';
+import { hash } from 'argon2';
 
 const dbUrl = process.env.DATABASE_URL || 'file:./dev.db'; // Fallback is crucial!
 
@@ -25,12 +26,14 @@ async function main() {
   console.log('Starting seeding...');
 
   // Create 10 users
+
+  const defaultPassword=await hash('123')
   const users = Array.from({ length: 10 }).map(() => ({
     email: faker.internet.email(),
     name: faker.person.fullName(),
     bio: faker.lorem.sentence(),
     avatar: faker.image.avatar(),
-    password: faker.internet.password({ length: 12 }),
+    password: defaultPassword 
   }));
 
   await prisma.user.createMany({ data: users });

@@ -74,4 +74,8 @@ export const authFetchGraphQl=async (query:string,variables={}, retries=5)=>{
             await new Promise(resolve => setTimeout(resolve, 2000 * (i + 1)));
         }
     }
+
+
+   
 }
+ 

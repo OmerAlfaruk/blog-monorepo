@@ -53,3 +53,27 @@ export type SigInFormState={
 
 }|undefined;
   
+
+
+export type PostFormState={
+  data?:{
+    title?:string;
+    content?:string;
+    thumbnail?:File|null;
+    tags?:string;
+    isPublished?:string;
+  },
+  error?:{
+    title?:string[];
+    content?:string[];
+    thumbnail?:string[];
+    tags?:string[];
+    isPublished?:string[];
+  },
+  message?:string,
+  ok?:boolean,
+ 
+  
+
+
+}  |undefined
